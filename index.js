@@ -10,41 +10,60 @@ function getClass(className) {
     return cName
 }
 
+
+const allCards = getId("all-cards");
 // .............. heart button click even -------------
-const heartButtons = getClass("heart-btn");
-for (const heartButton of heartButtons) {
-    // ---hover effect ---
-    heartButton.addEventListener("mouseover", function () {
+//  ------heart hover even -------
+allCards.addEventListener("mouseover", function (e) {
+    if (e.target.className.includes("heart-btn")) {
+        const heartButton = e.target;
         heartButton.classList.add("text-red-500");
-    })
-    heartButton.addEventListener("mouseout", function () {
+    }
+})
+allCards.addEventListener("mouseout", function (e) {
+    if (e.target.className.includes("heart-btn")) {
+        const heartButton = e.target;
         heartButton.classList.remove("text-red-500");
-    })
-    // ---- click event -----
-    heartButton.addEventListener("click", function () {
-        heartButton.classList.toggle("text-red-500");
-        const totalHeart = document.getElementById("total-heart").innerText;
-        const currentHeart = Number(totalHeart) + 1;
-        document.getElementById("total-heart").innerText = currentHeart;
-    })
-}
+    }
+})
 
-//// use even daligation
-const allCards = getId(all-cards);
-console.log()
+// ---------heart clicked even -----------
+allCards.addEventListener("click", function (e) {
+    if (e.target.className.includes("heart-btn")) {
+        const heartButton = e.target;
+        // ---- click event -----
+        heartButton.addEventListener("click", function () {
+            heartButton.classList.toggle("text-red-500");
+            const totalHeart = document.getElementById("total-heart").innerText;
+            const currentHeart = Number(totalHeart) + 1;
+            document.getElementById("total-heart").innerText = currentHeart;
+        })
+    }
+})
 
-// ...............  call button even handaling .......................
-const callButtons = getClass("call-btn");
-for (const callButoon of callButtons) {
-    // -----hover effect ----
-    callButoon.addEventListener("mouseover", function () {
-        callButoon.classList.add("bg-gray-400")
-    })
-    callButoon.addEventListener("mouseout", function () {
-        callButoon.classList.remove("bg-gray-400")
-    })
 
-    callButoon.addEventListener("click", function () {
+////--------------- call btn even use even daligation---------------
+
+/// ..... hover effect even.....
+allCards.addEventListener("mouseover", function (e) {
+    if (e.target.className.includes("call-btn")) {
+        const callButton = e.target;
+        callButton.classList.add("bg-black")
+        // console.log("call button is hovered")
+    }
+})
+allCards.addEventListener("mouseout", function (e) {
+    if (e.target.className.includes("call-btn")) {
+        const callButton = e.target;
+        callButton.classList.remove("bg-black")
+        // console.log("call button is hoverout")
+    }
+})
+
+// ......click event.....
+allCards.addEventListener("click", function (e) {
+    if (e.target.className.includes("call-btn")) {
+        const callButton = e.target;
         // --- coin minus ----
         const totalCoin = Number(getId("total-coin").innerText);
         if (totalCoin <= 0) {
@@ -55,8 +74,8 @@ for (const callButoon of callButtons) {
         getId("total-coin").innerText = newCoin;
 
         // ---add history---
-        const cardTitle = callButoon.parentNode.parentNode.children[1].children[0].innerText
-        const callNumber = callButoon.parentNode.parentNode.children[1].children[2].innerText
+        const cardTitle = callButton.parentNode.parentNode.children[1].children[0].innerText;
+        const callNumber = callButton.parentNode.parentNode.children[1].children[2].innerText;
         const historyContainer = getId("history-container");
         const newHistory = document.createElement("div");
         newHistory.innerHTML = `
@@ -70,23 +89,30 @@ for (const callButoon of callButtons) {
         `
         historyContainer.appendChild(newHistory)
         alert(cardTitle + " " + callNumber);
-        // console.log(cardTitle, callNumber,historyContainer)
-    })
-}
+        // console.log(cardTitle, callNumber, historyContainer,callButton)
+
+    }
+})
 
 // ........... copy button even handalinhg ..............
-const copyBtns = getClass("copy-btn");
-for (const copyBtn of copyBtns) {
-    // -----hover effect ----
-    copyBtn.addEventListener("mouseover", function () {
+// ---copy btn hover even ----
+// -----hover effect ----
+allCards.addEventListener("mouseover", function (e) {
+    if (e.target.className.includes("copy-btn")) {
+        const copyBtn = e.target;
         copyBtn.classList.add("bg-black")
-    })
-    copyBtn.addEventListener("mouseout", function () {
+    }
+})
+allCards.addEventListener("mouseout", function (e) {
+    if (e.target.className.includes("copy-btn")) {
+        const copyBtn = e.target;
         copyBtn.classList.remove("bg-black")
-    })
-
-
-    copyBtn.addEventListener("click", function () {
+    }
+})
+// ---copy btn click even ----
+allCards.addEventListener("click", function (e) {
+    if (e.target.className.includes("copy-btn")) {
+        const copyBtn = e.target;
         const callNumber = copyBtn.parentNode.parentNode.children[1].children[2].innerText;
         // alert("নাম্বার কপি হয়েছে:" + " " + callNumber);
         // ...copy count ...
@@ -99,9 +125,11 @@ for (const copyBtn of copyBtns) {
         }).catch(function (err) {
             console.log("নাম্বার কপি হয় নি :" + " " + callNumber);
         });
-    })
-}
+    }
+})
+
 // ..............clear button event handaling ......................
 getId("clear-btn").addEventListener("click", function () {
     getId("history-container").innerHTML = "";
+    console.log("clear is clicked")
 })
